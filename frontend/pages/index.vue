@@ -8,6 +8,11 @@
       <h2 class="subtitle">
         My finest Nuxt.js project
       </h2>
+      <div>
+        <input type="text" v-model="url">
+        <input type="button" @click="geturl">
+        {{ result }}
+      </div>
       <div class="links">
         <a
           href="https://nuxtjs.org/"
@@ -30,10 +35,30 @@
 
 <script>
 import Logo from '~/components/Logo.vue'
+import axios from 'axios'
 
 export default {
   components: {
     Logo
+  },
+  data () {
+    return { 
+      url: '',
+      result: {}
+    }
+  },
+  methods: {
+    geturl: async function (){
+      await axios.get('http://localhost:8080/geturl', { params: {url: this.url}})
+        .then(response => this.result = response.data)
+          .catch(function (error) {
+            console.log(error);
+          });
+          console.log(this.result)
+          var id = this.result.data._id;
+          console.log(id)
+          this.$router.push({ path: `/item/${id}` }) // -> /item/123
+    }
   }
 }
 </script>
