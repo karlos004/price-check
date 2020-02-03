@@ -56,8 +56,9 @@ export default {
           });
           console.log(this.result)
           var id = this.result.data._id;
+          var status = this.result.status
           console.log(id)
-          this.$router.push({ path: `/item/${id}` }) // -> /item/123
+          this.$router.push({ path: `/item/${id}`, query: {status: status} }) // -> /item/123
     }
   }
 }

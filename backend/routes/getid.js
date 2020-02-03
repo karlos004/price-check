@@ -15,7 +15,7 @@ router.get('/', function(req, res, next) {
         
             var db = client.db('prices')
             var query = { _id: o_id };
-            db.collection("amazon").find(query).toArray(function(err, result) {
+            db.collection("morele").find(query).toArray(function(err, result) {
               if (err) throw err;
               console.log(result)
               var options = {
@@ -27,7 +27,8 @@ router.get('/', function(req, res, next) {
              
             rp(options)
                 .then(function ($) {
-                  let img = $('img#landingImage').attr('src');
+                  // console.log($('div.swiper-slide').children('img').eq(5).attr("data-src"))
+                  let img = $('div.swiper-slide').children('img').eq(5).attr("data-src");
                   console.log(img);
                   res.send({result: result[0], image: img})
                   })
